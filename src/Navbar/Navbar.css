@@ -1,0 +1,33 @@
+/* NAVBAR STYLING STARTS */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    background-color: #F0F8FF;
+    color: black;
+   }
+   .nav-links a {
+    color: black;
+   }
+   /* LOGO */
+   .logo {
+    font-size: 32px;
+   }
+   /* NAVBAR MENU */
+   .menu {
+    display: flex;
+    gap: 1em;
+    font-size: 18px;
+   }
+   .menu li:hover {
+    background-color: #4c9e9e;
+    border-radius: 5px;
+    transition: 0.3s ease;
+   }
+   .menu li {
+    padding: 5px 14px;
+   }
+   /* DROPDOWN MENU */
+   
+   
