@@ -21,7 +21,7 @@ export const LoginFailure = (error) => {
 export const registerApi = (data) => {
     return async () => {
         try {
-            const response = await axios.post('http://localhost:8000/blog/register',data);
+            const response = await axios.post('http://localhost:5000/blog/register',data);
             console.log(response.data);
              return {register:true}
         }
@@ -36,7 +36,7 @@ export const loginFetchUser = (inputValues) =>   {
     return async (dispatch) => {
         try{
             dispatch(LoginStart())
-            const response = await axios.post('http://localhost:8000/blog/login', inputValues)
+            const response = await axios.post('http://localhost:5000/blog/login', inputValues)
             console.log(response)
             localStorage.setItem('token', response.data)
             dispatch(LoginSuccess(response.data.users))

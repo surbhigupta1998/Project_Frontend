@@ -24,7 +24,7 @@ function Login() {
         console.log(inputValues)
         await dispatch(loginFetchUser(inputValues))
         .then((res) => {   
-            if(res.register) {
+            if(res.login) {
                 navigate("/home")
             }   
            });

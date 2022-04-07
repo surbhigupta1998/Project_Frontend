@@ -4,7 +4,7 @@ import { registerApi } from '../Action/action';
 import './register.css'
 import { useNavigate } from 'react-router-dom';
 function Register() {
-    const [state, setState] = useState({
+    const [data, setData] = useState({
         name: "",
         email: "",
         password: "",
@@ -13,14 +13,14 @@ function Register() {
     const dispatch = useDispatch();
     const navigate =useNavigate();
     const handleChange = (e) => {
-        setState((state) => ({
-            ...state, [e.target.name]: e.target.value
+        setData((data) => ({
+            ...data, [e.target.name]: e.target.value
         }))
     }
     const handleSubmit = async (e) =>{
         e.preventDefault();
-        console.log(state)
-        await dispatch(registerApi(state))
+        console.log(data)
+        await dispatch(registerApi(data))
          .then((res) => {   
          if(res.register) {
              navigate('/login')
@@ -37,7 +37,7 @@ function Register() {
                             type="text"
                             placeholder="Name"
                             name="name"
-                            value={state.name}
+                            value={data.name}
                             onChange={handleChange}
 
                         />
@@ -48,7 +48,7 @@ function Register() {
                             type="text"
                             placeholder="Email"
                             name="email"
-                            value={state.email}
+                            value={data.email}
                             onChange={handleChange}
 
                         />
@@ -59,7 +59,7 @@ function Register() {
                             type="text"
                             placeholder="Password"
                             name="password"
-                            value={state.password}
+                            value={data.password}
                             onChange={handleChange}
 
 
