@@ -21,6 +21,7 @@ function Navbar() {
                     {token ?(
                     <ul className="nav-links">
                         <div className="menu">
+                            <Link to ="/home">Home</Link>
                             <Link to ="/post">Post</Link>
                             <Link to ="/login" onClick={()=> localStorage.removeItem('token') }> <FaSignInAlt />Logout</Link>
                         </div>

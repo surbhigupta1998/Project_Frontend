@@ -36,7 +36,7 @@ export const loginFetchUser = (inputValues) =>   {
     return async (dispatch) => {
         try{
             dispatch(LoginStart())
-            const response = await axios.post('http://localhost:5000/blog/login', inputValues)
+            const response = await axios.post('http://localhost:7000/blog/login', inputValues)
             console.log(response)
             localStorage.setItem('token', response.data)
             dispatch(LoginSuccess(response.data.users))
