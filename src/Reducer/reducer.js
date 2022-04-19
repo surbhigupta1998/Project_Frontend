@@ -1,6 +1,6 @@
 const initialState = {
     loading: null,
-    users: {},
+    users: localStorage.getItem("user"),
     error: "",
 }
 
@@ -15,7 +15,7 @@ const loginReducer = (state = initialState,action) =>{
             return{
                 ...state,
                 loading: false,
-                users: action.playload,
+                users: action.payload,
                 error: "",
             };
         case "LOGIN_FAILURE":

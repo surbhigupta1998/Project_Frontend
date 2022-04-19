@@ -6,12 +6,12 @@ import { FaSignInAlt} from "react-icons/fa"
 import { useNavigate } from 'react-router-dom';
 import {Link} from "react-router-dom"
 function Login() {
-    const user ={
+    const userlogin ={
         email : "",
         password : ""
     }
-    const [inputValues, setInputValues] = useState(user)
-    const selector = useSelector(state => state.loginReducer.users)
+    const [inputValues, setInputValues] = useState(userlogin)
+    const users = useSelector((state) => state.user.users)
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const handleChange = (e) => {
@@ -25,13 +25,13 @@ function Login() {
         await dispatch(loginFetchUser(inputValues))
         .then((res) => {   
             if(res.login) {
-                navigate("/home")
+                navigate("/post")
             }   
            });
     }
     
     return (
-        <div className='container'>
+        <div className='container_wrapper'>
             <div className='wrapper'>
                 <form className='form-wrapper'>
                     <div>

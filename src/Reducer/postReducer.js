@@ -1,8 +1,9 @@
 // create reducers
 const initialState = {
     loading: null,
-    users: {},
+    users: [],
     error: "",
+    draftPost:null,
 }
 
 const postReducer = (state = initialState,action) =>{
@@ -16,7 +17,7 @@ const postReducer = (state = initialState,action) =>{
             return{
                 ...state,
                 loading: false,
-                users: action.playload,
+                users: action.payload,
                 error: "",
             };
         case "POST_FAILURE":
@@ -24,6 +25,11 @@ const postReducer = (state = initialState,action) =>{
                 loading: false,
                 users: {},
                 error: action.payload,
+            };
+        case "DRAFT_POST":
+            return{
+                ...state,
+                draftPost: action.payload,
             };
         default:
             return state;

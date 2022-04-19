@@ -12,13 +12,20 @@ export const PostSuccess = (users) => {
         payload: users
     }
 }
+
+export const saveToDraft = (post) => {
+    return {
+        type: "DRAFT_POST",
+        payload: post
+    }
+}
 export const PostFailure = (error) => {
     return {
         type: "POST_FAILURE",
         payload: error
     }
 }
-// api use krni
+
 export const postFetchUser = (post) =>   {
     return async (dispatch) => {
         try{
@@ -27,7 +34,7 @@ export const postFetchUser = (post) =>   {
             console.log(response)
             //localStorage.setItem('token', response.data)
             // dispatch(PostSuccess(response.data))
-            //return{post : true}
+            return true;
         }
         catch(error){
             // dispatch(PostFailure(error))
@@ -36,19 +43,21 @@ export const postFetchUser = (post) =>   {
         }
     }
 }
+
 export const postFetch = () => {
     return async dispatch => {
         try {
             dispatch(PostStart);
-            const response = await axios.get('https://localhost:7000/posts/read');
+            const response = await axios.get('http://localhost:7000/posts');
+
             dispatch(PostSuccess(response.data));
-            console.log(response.data);
-        
+            // console.log(response.data);
+            return true;
             
         }
         catch(error){
             dispatch(PostFailure(error.message));
-        
+            return { res : false }
         }
     }
 }

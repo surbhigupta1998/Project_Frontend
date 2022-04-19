@@ -6,13 +6,24 @@ import Register from "../component/register";
 import Login from "../component/login";
 import Home from "../component/home";
 import Post from "../component/post";
+import { useStore } from "react-redux";
+import DraftPost from "../component/postDraft/ShowDraft";
 function Navbar() {
     const [token, setToken] = useState('')
+    const [user,setUser]= useState('')
+    const handleClick = () => {
+        localStorage.removeItem('token',token)
+        localStorage.removeItem('user',user)
+
+    }
     useEffect(()=>{
         const token= localStorage.getItem('token')
+        const users= JSON.parse(localStorage.getItem('user'))
         setToken(token)
+        setUser(users)
         console.log(token)
-    },[])
+        console.log("NAvbar-user",user)
+    },[token])
     return (
         <div>
             <Router>
@@ -21,9 +32,10 @@ function Navbar() {
                     {token ?(
                     <ul className="nav-links">
                         <div className="menu">
-                            <Link to ="/home">Home</Link>
+                            <Link to ="/home" >Home</Link>
                             <Link to ="/post">Post</Link>
-                            <Link to ="/login" onClick={()=> localStorage.removeItem('token') }> <FaSignInAlt />Logout</Link>
+                            <Link to ="/draft">Draft</Link>
+                            <Link to ="/login" onClick={handleClick}> <FaSignInAlt />Logout</Link>
                         </div>
                     </ul>
                     ): (
@@ -31,8 +43,6 @@ function Navbar() {
                         <div className="menu">
                             <Link to ="/"> <FaUser />Register</Link>
                             <Link to ="/login"> <FaSignInAlt />Login</Link>
-
-
                         </div>
                     </ul>
                     )}
@@ -42,6 +52,7 @@ function Navbar() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/home" element={<Home />} />
                     <Route path="/post" element={<Post />} />
+                    <Route path="/draft" element={<DraftPost />} />
                 </Routes>
             </Router>
 

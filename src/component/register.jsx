@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { registerApi } from '../Action/action';
 import './register.css'
 import { useNavigate } from 'react-router-dom';
+import { FaSignInAlt} from "react-icons/fa"
 function Register() {
     const [data, setData] = useState({
         name: "",
         email: "",
         password: "",
     })
-    const selector = useSelector(state => state.loginReducer.user)
+    const selector = useSelector(state => state.user.users)
     const dispatch = useDispatch();
     const navigate =useNavigate();
     const handleChange = (e) => {
@@ -17,10 +18,10 @@ function Register() {
             ...data, [e.target.name]: e.target.value
         }))
     }
-    const handleSubmit = async (e) =>{
+    const handleSubmit = (e) => {
         e.preventDefault();
         console.log(data)
-        await dispatch(registerApi(data))
+        dispatch(registerApi(data))
          .then((res) => {   
          if(res.register) {
              navigate('/login')
@@ -28,12 +29,12 @@ function Register() {
         });
     }
     return (
-        <div className='container'>
-            <div className='wrapper'>
-                <form className='form-wrapper'>
+        <div className='container-wrapper'>
+            <div className='app-wrapper'>
+                <form className='form-app-wrapper'>
                     <div>
                         <input
-                            className='input'
+                            className='inputvalues'
                             type="text"
                             placeholder="Name"
                             name="name"
@@ -44,7 +45,7 @@ function Register() {
                     </div>
                     <div>
                         <input
-                            className='input'
+                            className='inputvalues'
                             type="text"
                             placeholder="Email"
                             name="email"
@@ -55,20 +56,16 @@ function Register() {
                     </div>
                     <div>
                         <input
-                            className='input'
+                            className='inputvalues'
                             type="text"
                             placeholder="Password"
                             name="password"
                             value={data.password}
                             onChange={handleChange}
-
-
                         />
                     </div>
                     <div>
-                        <button className='btn' onClick={handleSubmit}>Register</button>
-                
-
+                        <button className='btn' onClick={handleSubmit} ><FaSignInAlt />Register</button>
                     </div>
                 </form>
             </div>

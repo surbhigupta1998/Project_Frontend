@@ -1,4 +1,4 @@
-.container{
+.post-container-wrapper{
     background: #8FBC8F;
     width: 100%;
     min-height: 90vh;
@@ -6,7 +6,7 @@
     justify-content: center;
     align-items: center;
 }
-.wrapper{
+.post-app-wrapper{
     background-color:  #F0F8FF;
     min-width: 300px;
     min-height: 300px;
@@ -15,8 +15,8 @@
     border-radius: 5px;
 
 }
-.input{
-    height : 15px;
+.input_values{
+    height : 30px;
     font-size: 20px;
     outline: none;
     width:100%;
@@ -27,12 +27,12 @@
     margin-bottom: 3rem;
 }
 .btn{
-    width: 70px;
+    width: auto;
     height:30px;
     color: white;
     background-color: black;
     outline: none;
-    border:none;
+    border-style:1px solid black !important;
 }
 button:active{
     transform: translateY(6px);
