@@ -12,7 +12,9 @@
    }
    /* LOGO */
    .logo {
-    font-size: 32px;
+    font-size: 60px;
+    margin-left: 5rem;
+    
    }
    /* NAVBAR MENU */
    .menu {

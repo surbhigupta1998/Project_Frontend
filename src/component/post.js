@@ -9,11 +9,13 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 //end
 function Post() {
 
+
     const user = {
         title: "",
         text: ""
     }
     const [post, setPost] = useState(user);
+    const [isPublic, setIsPublic ] = useState(false);
 
     const selector = useSelector(state => state.postReducer.users)
     const draftPostValue = useSelector(state => state.postReducer.draftPost)
@@ -25,26 +27,34 @@ function Post() {
             ...post, [e.target.name]: e.target.value
         }))
     }
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(post);
-        await dispatch(postFetchUser({ ...post, status: "success" }))
+        console.log("post", post);
+        await dispatch(postFetchUser({ ...post, status: "success",visibility:isPublic }))
             .then((res) => {
-                if (res) {
+                if (res==isPublic) {
                     navigate('/home')
+                }else if(res==!isPublic){
+                    navigate('/draft')
                 }
             });
     };
-    const handleDraft = async (e) => {
-        e.preventDefault();
-        await dispatch(postFetchUser({ ...post, status: "draft" }))
-            .then((res) => {
-                if (res) {
-                    navigate('/home')
-                }
-            });
-    }
+    // const handleDraft = async (e) => {
+    //     e.preventDefault();
+    //     await dispatch(postFetchUser({ ...post, status: "draft" }))
+    //         .then((res) => {
+    //             if (res) {
+    //                 navigate('/draft')
+    //             }
+    //         });
+    // }
+    const handleVisibility = () =>{
+        setIsPublic(!isPublic)
+        
 
+
+    }
     return (
         <div className='post-container-wrapper'>
             <div>  </div>
@@ -68,9 +78,17 @@ function Post() {
                         onChange={(e, editor) => { setPost({ ...post, text: editor.getData() }) }}
 
                     />
+                    <label className="switch">
+                        <input type="checkbox"
+                        value={true}
+                        onChange={handleVisibility} />
+                        <span className="slider round"></span>
+                        
+
+                    </label>
                     <div>
                         <button className='btn' onClick={handleSubmit}>Publish</button>
-                        <button className='btn' onClick={handleDraft}>Save as draft</button>
+                        {/* <button className='btn' onClick={handleDraft}>Save as draft</button> */}
 
                     </div>
                 </form>

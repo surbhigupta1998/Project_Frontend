@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { postFetch } from '../Action/post';
 
-
 export default function Home() {
   const posts = useSelector((state) => state.postReducer.users)
-  console.log("users", posts)
+  console.log("users==============", posts)
   const dispatch = useDispatch()
   
   useEffect(() => {
@@ -14,7 +13,7 @@ export default function Home() {
 
   return (
     <div>
-      <h1>My All Post</h1>
+      <h1 class="text-info">My All Post</h1>
       <div className="row">
       {posts && posts.map((item) => (
         item.status==="success"?

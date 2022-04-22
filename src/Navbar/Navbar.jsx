@@ -6,8 +6,11 @@ import Register from "../component/register";
 import Login from "../component/login";
 import Home from "../component/home";
 import Post from "../component/post";
-import { useStore } from "react-redux";
-import DraftPost from "../component/postDraft/ShowDraft";
+//import Draft from "../component/showDraft"
+import DraftPost from "../component/showDraft";
+//import { useStore } from "react-redux";
+//import EditDraft from "../component/postDraft/EditDraft";
+//import DraftPost from "../component/postDraft/ShowDraft";
 function Navbar() {
     const [token, setToken] = useState('')
     const [user,setUser]= useState('')

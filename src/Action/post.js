@@ -14,6 +14,7 @@ export const PostSuccess = (users) => {
 }
 
 export const saveToDraft = (post) => {
+    console.log("draft----",post);
     return {
         type: "DRAFT_POST",
         payload: post
@@ -31,6 +32,11 @@ export const postFetchUser = (post) =>   {
         try{
             // dispatch(PostStart())
             const response = await axios.post('http://localhost:7000/posts/create', post)
+            const {visibility} = response.data
+            if(visibility){
+                dispatch(saveToDraft(response.data))
+                return true
+            }
             console.log(response)
             //localStorage.setItem('token', response.data)
             // dispatch(PostSuccess(response.data))
@@ -49,9 +55,14 @@ export const postFetch = () => {
         try {
             dispatch(PostStart);
             const response = await axios.get('http://localhost:7000/posts');
+            console.log("fetching",response.data);
 
-            dispatch(PostSuccess(response.data));
-            // console.log(response.data);
+            const publicPost =response.data.filter((post)=>{if(post.visibility==='true')
+                {
+             return post
+            }})
+            console.log("postsss",publicPost);
+            dispatch(PostSuccess(publicPost));
             return true;
             
         }
@@ -61,3 +72,5 @@ export const postFetch = () => {
         }
     }
 }
+
+

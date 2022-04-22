@@ -3,7 +3,7 @@ const initialState = {
     loading: null,
     users: [],
     error: "",
-    draftPost:null,
+    draftPost:[],
 }
 
 const postReducer = (state = initialState,action) =>{
@@ -29,7 +29,7 @@ const postReducer = (state = initialState,action) =>{
         case "DRAFT_POST":
             return{
                 ...state,
-                draftPost: action.payload,
+                draftPost:[...state.draftPost, action.payload],
             };
         default:
             return state;
