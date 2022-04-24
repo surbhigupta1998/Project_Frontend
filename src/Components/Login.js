@@ -1,33 +1,41 @@
 import React,{useState}from 'react';
-import './login.css'
-import { useDispatch, useSelector } from 'react-redux';
-import { loginFetchUser} from '../Action/action';
+import './Login.css'
+import { useDispatch } from 'react-redux';
+import axios from 'axios'
 import { FaSignInAlt} from "react-icons/fa"
 import { useNavigate } from 'react-router-dom';
-import {Link} from "react-router-dom"
+import { toast } from 'react-toastify';
+import { bindActionCreators } from 'redux';
+import { actionCreators } from '../Actions/index';
+
 function Login() {
-    const userlogin ={
+
+    const [inputValues, setInputValues] = useState({
         email : "",
         password : ""
-    }
-    const [inputValues, setInputValues] = useState(userlogin)
-    const users = useSelector((state) => state.user.users)
+    })
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const {setAuthtoken} = bindActionCreators(actionCreators,dispatch);
+    
     const handleChange = (e) => {
-        setInputValues((inputValues) => ({
-            ...inputValues, [e.target.name]: e.target.value
-        }))
+        setInputValues({ ...inputValues, [e.target.name]: e.target.value });
     }
-    const handleSubmit = async (e) =>{
+
+    const handleSubmit = (e) =>{
         e.preventDefault();
-        console.log(inputValues)
-        await dispatch(loginFetchUser(inputValues))
-        .then((res) => {   
-            if(res.login) {
+        axios.post('http://localhost:7000/blog/login', inputValues).then(response=>{
+            if(response.status === 200){
+                setAuthtoken(response.data.authtoken);
+                toast.success("Logged in Successfully");
                 navigate("/post")
-            }   
-           });
+            }else{
+                toast.info("Wrong Credentials")
+            }
+        }).catch(error=>{
+            toast.info(error.response.data.msg);
+        })    
     }
     
     return (
@@ -55,7 +63,7 @@ function Login() {
                         />
                     </div>
                     <div>
-                        <button className='btn' as={Link} to="/home" onClick={handleSubmit} ><FaSignInAlt />Login</button>
+                        <button className='btn' type='button' onClick={handleSubmit} ><FaSignInAlt />Login</button>
                     </div>
                 </form>
             </div>

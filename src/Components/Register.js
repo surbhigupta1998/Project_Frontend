@@ -1,33 +1,43 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { registerApi } from '../Action/action';
-import './register.css'
+import { useDispatch } from 'react-redux';
+import { bindActionCreators } from 'redux'
+import { toast } from 'react-toastify'
+import { actionCreators } from '../Actions/index'
+import './Register.css'
 import { useNavigate } from 'react-router-dom';
-import { FaSignInAlt} from "react-icons/fa"
+import { FaSignInAlt } from "react-icons/fa";
+import axios from 'axios'
+
 function Register() {
     const [data, setData] = useState({
         name: "",
         email: "",
         password: "",
     })
-    const selector = useSelector(state => state.user.users)
     const dispatch = useDispatch();
-    const navigate =useNavigate();
+    const { setAuthtoken } = bindActionCreators(actionCreators, dispatch)
+
+    const navigate = useNavigate();
+
     const handleChange = (e) => {
-        setData((data) => ({
-            ...data, [e.target.name]: e.target.value
-        }))
+        setData({ ...data, [e.target.name]: e.target.value })
     }
-    const handleSubmit = (e) => {
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(data)
-        dispatch(registerApi(data))
-         .then((res) => {   
-         if(res.register) {
-             navigate('/login')
-         }   
+        axios.post('http://localhost:7000/blog/register', data).then(response => {
+            if (response.status === 200) {
+                toast.success("Successfully register");
+                setAuthtoken(response.data.authtoken);
+                navigate('/home');
+            } else {
+                toast.error("Something went wrong");
+            }
+        }).catch(error => {
+            toast.error(error.response.data.msg);
         });
     }
+
     return (
         <div className='container-wrapper'>
             <div className='app-wrapper'>
