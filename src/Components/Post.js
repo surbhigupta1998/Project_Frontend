@@ -56,8 +56,8 @@ export default function Post() {
 
     return (
         <div className='post-container-wrapper'>
-            <div>  </div>
             <div className='post-app-wrapper'>
+                <h3 className='my-3'>Publish a Blog Post</h3>
                 <form className='post-form-wrapper-2'>
                     <div>
                         <input
