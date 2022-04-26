@@ -1,7 +1,7 @@
 import Navbar from './Components/Navbar';
 import './App.css';
-import Register from './Components/Register'
-import Login from './Components/Login'
+import Register from './Components/auth/Register'
+import Login from './Components/auth/Login'
 import Home from './Components/Home'
 import Post from './Components/Post'
 import DraftPost from './Components/Draft'

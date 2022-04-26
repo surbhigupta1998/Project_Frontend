@@ -1,0 +1,9 @@
+.card-footer{
+    display: flex;
+    justify-content:space-evenly;
+    align-items:center;
+}
+
+.card-footer i:hover{
+    cursor: pointer;
+}

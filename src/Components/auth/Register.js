@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import { toast } from 'react-toastify'
-import { actionCreators } from '../Actions/index'
-import './Login.css'
+import { actionCreators } from '../../Actions/index'
+import '../../styles/Auth.css'
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios'
 

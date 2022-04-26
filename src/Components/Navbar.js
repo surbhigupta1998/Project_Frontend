@@ -1,14 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import './Navbar.css'
+import '../styles/Navbar.css'
 import { FaSignInAlt, FaUser } from "react-icons/fa"
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators, postActionCreators } from "../Actions/index";
-//import Draft from "../component/showDraft"
-//import { useStore } from "react-redux";
-//import EditDraft from "../component/postDraft/EditDraft";
-//import DraftPost from "../component/postDraft/ShowDraft";
+
 function Navbar() {
 
     const { authtoken } = useSelector((state) => state.userReducer);

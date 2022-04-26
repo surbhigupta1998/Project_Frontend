@@ -5,7 +5,8 @@ import { toast } from 'react-toastify';
 import { bindActionCreators } from 'redux';
 import axios from 'axios'
 import { postActionCreators } from '../Actions/index';
-import MainImage from '../main_image1.jpeg'
+import MainImage from '../assets/main_image1.jpeg'
+import renderHTML from 'react-render-html';
 
 export default function Home() {
   const navigate = useNavigate()
@@ -30,15 +31,19 @@ export default function Home() {
   }, [])
 
   return (
-    <div>
-      <h1 className="text-info">All Posts</h1>
-      <div className="row">
+    <div className='container mt-3'>
+      <h1 className="text-info my-2">All Posts</h1>
+      <div className="row row-cols-1 row-cols-md-3 g-4">
         {publicPosts.length ? publicPosts.map(item => (
-          <div className="col-sm-4" key={item._id}>
-            <div className="card">
-              <div className="card-body">
+          <div className="col" key={item._id}>
+            <div className="card" style={{borderRadius:'15px'}}>
+              <div className="card-body" style={{backgroundColor:'black',color:'white'}}>
                 <h5 className="card-title">{item.title}</h5>
-                <div className="card-text">{item.text}</div>
+                <div className="card-text">{renderHTML(item.text)}</div>
+              </div>
+              <div className='card-footer'>
+                <i style={{fontSize:'20px',color:'red'}} className='fas fa-thumbs-up'></i>
+                <i style={{fontSize:'20px'}} className='far fa-thumbs-down'></i>
               </div>
             </div>
           </div>
