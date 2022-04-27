@@ -24,7 +24,7 @@ function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:7000/blog/login', inputValues).then(response => {
+        axios.post('http://localhost:7000/user/login', inputValues).then(response => {
             if (response.status === 200) {
                 setAuthtoken(response.data.authtoken);
                 toast.success("Logged in Successfully");

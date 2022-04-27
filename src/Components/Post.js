@@ -33,9 +33,8 @@ export default function Post() {
     
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // setPost({...post,text:post.text.slice(3,post.text.length-4)})
         console.warn(post)
-        axios.post('http://localhost:7000/posts/create', post).then(response=>{
+        axios.post('http://localhost:7000/blog/create', post).then(response=>{
             if(response.status === 201){
                 toast.success("Blog Successfully Posted")
                 if(post.visibility)

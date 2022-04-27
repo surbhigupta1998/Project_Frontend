@@ -27,7 +27,7 @@ export default function AlertDialogBox({ id, isOpenDialog = false, handleClose }
     const classes = useStyles();
 
     const removeItem = () => {
-        axios.delete(`http://localhost:7000/posts/delete/${id}`)
+        axios.delete(`http://localhost:7000/blog/delete/${id}`)
             .then(response => {
                 if (response.status === 204)
                     toast.success("Blog deleted successfully")

@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { postActionCreators } from '../Actions/index'
 import { toast } from 'react-toastify';
-import MainImage from '../assets/main_image1.jpeg'
+import OOps from '../assets/oops.png'
 import { Link } from 'react-router-dom';
 import '../styles/Draft.css'
 import CustomizedDialogs from './Dialog';
@@ -55,7 +55,7 @@ export default function DraftPost() {
       toast.info("Login First to see posts")
       navigate('/login')
     } else {
-      axios.post('http://localhost:7000/posts/draft', { authtoken }).then(response => {
+      axios.post('http://localhost:7000/blog/draft', { authtoken }).then(response => {
         ;
         const privatepost = response.data.filter(post => post.visibility === true ? null : post);
         setPrivatePosts(privatepost)
@@ -67,9 +67,9 @@ export default function DraftPost() {
 
   return (
     <div className='container mt-3'>
-      <h1 className='my-2' style={{color:'blue'}}>Your Drafts</h1>
+      <h2 className='text-info my-2'>Your Drafts</h2>
       <div className="row row-cols-1 row-cols-md-3 g-4">
-        {privatePosts.length ? privatePosts.map(item => (
+        {privatePosts!==null && privatePosts.length ? privatePosts.map(item => (
           <div className="col" key={item._id}>
             <div className="card" style={{borderRadius:'15px'}}>
               <div className="card-body" style={{backgroundColor:'black',color:'white'}}>
@@ -84,7 +84,7 @@ export default function DraftPost() {
           </div>
         )) : <div className='container mt-3'>
           <div className="card" style={{ width: '18rem' }}>
-            <img src={MainImage} className="card-img-top" alt="..." />
+            <img src={OOps} className="card-img-top" alt="..." />
             <div className="card-body">
               <p className="card-text">No Post Available</p>
               <Link className='btn btn-primary' to="/post">Publish Post</Link>

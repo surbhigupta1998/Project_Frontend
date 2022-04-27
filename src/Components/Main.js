@@ -1,5 +1,5 @@
 import React from 'react'
-import MainImage from '../assets/main_image2.jpeg'
+import MainImage from '../assets/main_image.jpeg'
 
 export default function Main() {
   return (

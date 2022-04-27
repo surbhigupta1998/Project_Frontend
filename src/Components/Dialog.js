@@ -5,7 +5,6 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, 
 import CloseIcon from '@material-ui/icons/Close';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import renderHTML from 'react-render-html';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
@@ -55,7 +54,7 @@ export default function CustomizedDialogs({ isOpenDialog = false, handleClose, t
     }
 
     const handleSubmit = () =>{
-        axios.put("http://localhost:7000/posts/update",{id,title:data.heading,text:data.content})
+        axios.put("http://localhost:7000/blog/update",{id,title:data.heading,text:data.content})
             .then(response=>{
                 if(response.status === 204)
                     toast.success("Blog Updated Successfully")
