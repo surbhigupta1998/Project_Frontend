@@ -25,23 +25,21 @@ export default function DraftPost() {
   const [title,setTitle] = useState(null)
   const [text,setText] = useState(null)
 
-  const [isOpenDialog, setIsOpenDialog] = useState(false);
-  const [isOpenDialog2, setIsOpenDialog2] = useState(false);
+  const [isOpenDialog, setIsOpenDialog] = useState(false)
+  const [isOpenDialog2, setIsOpenDialog2] = useState(false)
 
   const dialogClose = () => {
-    setIsOpenDialog(false);
-  };
+    setIsOpenDialog(false)
+  }
 
   const dialogClose2 = () => {
-    setIsOpenDialog2(false);
-  };
+    setIsOpenDialog2(false)
+  }
 
   const dialogOpen = (id,title,text) => {
-    const startingIndex = text.indexOf('>')
-    const endingIndex = text.indexOf('</')
     setId(id)
     setTitle(title)
-    setText(text.slice(startingIndex+1,endingIndex))
+    setText(text)
     setIsOpenDialog(true);
   };
 
@@ -56,14 +54,14 @@ export default function DraftPost() {
       navigate('/login')
     } else {
       axios.post('http://localhost:7000/blog/draft', { authtoken }).then(response => {
-        ;
-        const privatepost = response.data.filter(post => post.visibility === true ? null : post);
+        console.log(response.data)
+        const privatepost = response.data.posts.filter(post => post.visibility === true ? null : post)
         setPrivatePosts(privatepost)
       }).catch(error => {
-        toast.error(error.response.data.msg)
+        toast.error(error)
       })
     }
-  }, [privatePosts,isOpenDialog])
+  }, [isOpenDialog, isOpenDialog2])
 
   return (
     <div className='container mt-3'>
@@ -74,7 +72,7 @@ export default function DraftPost() {
             <div className="card" style={{borderRadius:'15px'}}>
               <div className="card-body" style={{backgroundColor:'black',color:'white'}}>
                 <h5 className="card-title">{item.title}</h5>
-                <div className="card-text">{renderHTML(item.text)}</div>
+                <div className="card-text">{item.text? renderHTML(item.text):null}</div>
               </div>
               <div className='card-footer'>
                 <i style={{fontSize:'20px',color:'blueviolet'}} className='fa fa-pen' onClick={()=>dialogOpen(item._id,item.title,item.text)} ></i>

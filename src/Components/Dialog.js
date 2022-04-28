@@ -1,10 +1,11 @@
-import * as React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Typography } from '@mui/material';
 import CloseIcon from '@material-ui/icons/Close';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import renderHTML from 'react-render-html';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
@@ -44,17 +45,22 @@ BootstrapDialogTitle.propTypes = {
 
 export default function CustomizedDialogs({ isOpenDialog = false, handleClose, title, text, id }) {
 
-    const [data, setData] = React.useState({
+    const [data, setData] = useState({
         heading: title,
         content: text
     })
 
-    const handleChange = (e) => {
-        setData({ ...data, [e.target.name]: e.target.value })
-    }
-
     const handleSubmit = () =>{
-        axios.put("http://localhost:7000/blog/update",{id,title:data.heading,text:data.content})
+        let heading,content;
+        if(data.heading === null)
+            heading = title;
+        else
+            heading = data.heading
+        if(data.content === null)
+            content = text
+        else
+            content = data.content
+        axios.put("http://localhost:7000/blog/update",{id,title:heading,text:content})
             .then(response=>{
                 if(response.status === 204)
                     toast.success("Blog Updated Successfully")
@@ -75,11 +81,11 @@ export default function CustomizedDialogs({ isOpenDialog = false, handleClose, t
                 open={isOpenDialog}
             >
                 <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-                    <input type="text" defaultValue={title} value={data.heading} name="heading" onChange={handleChange}></input>
+                    <div className='container' title='click here to edit title' contentEditable={true} onInput={e=>setData({...data,heading:e.currentTarget.textContent})} name="heading">{title}</div>
                 </BootstrapDialogTitle>
                 <DialogContent dividers>
                     <Typography gutterBottom>
-                        <input type="text" defaultValue={text} value={data.content} name="content" onChange={handleChange}></input>
+                        <div className='container' title='click here to edit text' contentEditable={true} onInput={e=>setData({...data,content:e.currentTarget.textContent})} name="content">{text?renderHTML(text):null}</div>
                     </Typography>
                 </DialogContent>
                 <DialogActions>
