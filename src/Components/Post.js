@@ -33,7 +33,6 @@ export default function Post() {
     
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.warn(post)
         axios.post('http://localhost:7000/blog/create', post).then(response=>{
             if(response.status === 201){
                 toast.success("Blog Successfully Posted")

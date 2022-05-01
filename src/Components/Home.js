@@ -30,7 +30,6 @@ export default function Home() {
       navigate('/login')
     } else {
       axios.post('http://localhost:7000/blog', { authtoken }).then(response => {
-        console.warn(response.data)
         const publicpost = response.data.posts.filter(post => post.visibility === true ? post : null);
         setPublicPosts(publicpost)
         setPostsLiked(response.data.postsLiked)
@@ -65,14 +64,11 @@ export default function Home() {
   }
 
   const postComment = (id) => {
-    axios.post('http://localhost:7000/blog/addComment',{id,authtoken,comment})
-      .then(response=>{
-        if(response.status(200))
-          toast.success("Comment Added")
-        else
-          toast.error("Oops! Something went wrong!!")
+    axios.post('http://localhost:7000/blog/addComment', { id, authtoken, comment })
+      .then(response => {
+        toast.success("Comment Added")
         setChangeUI(!changeUI)
-      }).catch(error=>{
+      }).catch(error => {
         toast.error(error)
         setChangeUI(!changeUI)
       })
@@ -103,26 +99,24 @@ export default function Home() {
                   <span className='mx-3'>{item.dislikes}</span>
                 </div>
                 <div>
-                  <i className='far fa-comment' onClick={()=>showComments(item._id)} style={{ fontSize: '20px' }}></i>
+                  <i className='far fa-comment' onClick={() => showComments(item._id)} style={{ fontSize: '20px' }}></i>
                 </div>
               </div>
-              {commentTrigger && commentTriggerId===item._id && <div className='comments-box'>
-                <div className='comments-input my-2'>
-                  <input type="text" name="comment" placeholder='Add a comment...' onChange={(e)=>setComment(e.target.value)}/>
-                  <i className="material-icons" onClick={()=>postComment(item._id)}>&#xe163;</i>
-                </div>
-                <div className='comments'>
-                <div className='comment-item'>
-                  <span>Chayan Gupta</span>
-                  <h6>This is a comment.</h6>
-                </div>
-                <div className='comment-item'>
-                  <span>Chayan Gupta</span>
-                  <h6>This is a comment.</h6>
-                </div>
-                </div>
-              </div>}
-              
+              {commentTrigger && commentTriggerId === item._id &&
+                <div className='comments-box'>
+                  <div className='comments-input my-2'>
+                    <input type="text" name="comment" placeholder='Add a comment...' onChange={(e) => setComment(e.target.value)} />
+                    <i className="material-icons" onClick={() => postComment(item._id)}>&#xe163;</i>
+                  </div>
+                  <div className='comments'>
+                    {item.comments.map(ele => (
+                        <div className='comment-item' key={ele._id}>
+                          <span>{ele.username} &#8226; {ele.date}</span>
+                          <h6>{ele.comment}</h6>
+                        </div>
+                    ))}
+                  </div>
+                </div>}
             </div>
           </div>
         )) :

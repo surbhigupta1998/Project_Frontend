@@ -25,7 +25,6 @@ function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         axios.post('http://localhost:7000/user/register', data).then(response => {
-            console.log(response.status)
             if (response.status === 200) {
                 toast.success("Successfully register");
                 setAuthtoken(response.data.authtoken);

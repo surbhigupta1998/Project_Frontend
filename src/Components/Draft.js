@@ -54,7 +54,6 @@ export default function DraftPost() {
       navigate('/login')
     } else {
       axios.post('http://localhost:7000/blog/draft', { authtoken }).then(response => {
-        console.log(response.data)
         const privatepost = response.data.posts.filter(post => post.visibility === true ? null : post)
         setPrivatePosts(privatepost)
       }).catch(error => {
