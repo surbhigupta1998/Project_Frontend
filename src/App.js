@@ -9,21 +9,23 @@ import Main from './Components/Main';
 
 import { ToastContainer } from 'react-toastify';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import React from 'react';
 
 
 function App() {
   return (
-    <div className="App">
+    <div className='App'>
+      <h1>sbcjhbcs</h1>
       <Router>
-      <ToastContainer />
-      <Navbar />
+        <ToastContainer />
+        <Navbar />
         <Routes>
-        <Route exact path="/" element={<Main />} />
-        <Route exact path="/register" element={<Register />} />
-        <Route exact path="/login" element={<Login />} />
-        <Route exact path="/home" element={<Home />} />
-        <Route exact path="/post" element={<Post />} />
-        <Route exact path="/draft" element={<DraftPost />} />
+          <Route exact path="/" element={<Main />} />
+          <Route exact path="/register" element={<Register />} />
+          <Route exact path="/login" element={<Login />} />
+          <Route exact path="/home" element={<Home />} />
+          <Route exact path="/post" element={<Post />} />
+          <Route exact path="/draft" element={<DraftPost />} />
         </Routes>
       </Router>
     </div>
