@@ -30,7 +30,7 @@ export default function Home() {
       toast.info("Login First to see posts")
       navigate('/login')
     } else {
-      axios.post(`http://localhost:7000/blog/${filter}`, { authtoken }).then(response => {
+      axios.post(`http://localhost:7000/blog/filter/${filter}`, { authtoken }).then(response => {
         const publicpost = response.data.posts.filter(post => post.visibility === true ? post : null);
         setPublicPosts(publicpost)
         setPostsLiked(response.data.postsLiked)
