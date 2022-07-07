@@ -74,6 +74,7 @@ export default function Home() {
         toast.error(error)
         setChangeUI(!changeUI)
       })
+    
   }
 
   const applyFilter = (e) =>{
